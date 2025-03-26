@@ -1,0 +1,53 @@
+#container-fl-list ul {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0;
+        margin: 10px 0;
+    }
+#container-fl-list ul li {
+        display: inline-block;
+        margin: 4px;
+        height: 30px;
+        padding: 4px;
+        text-align: center;
+        background-color: #475d82;
+    }
+
+#container-fl-list ul li a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        text-decoration: none;
+        color: white;
+}
+
+#container-fl-list #pagination li {
+        display: block;
+        color: white;
+        font-weight: bold;
+    }
+
+
+#container-fl-list #pdfView {
+        width: 700px;
+        height: 700px;
+    }
+
+#container-fl-list #search {
+        margin: 10px 0;
+        width: 250px;
+        height: 50px;
+        padding: 3px;
+}
+
+#container-fl-list #numero-risultati {
+        width: 250px;
+        height: 50px;
+        padding: 3px;
+        display: block;
+        margin: 10px 0;
+}
+
+#container-fl-list {
+        width: 80%;
+}
