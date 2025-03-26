@@ -197,6 +197,7 @@ function fl_ajax_directory_xhr () {
         } 
     }
 
+    natcasesort($interoElenco);
 
     if ($ricerca && $ricerca !== "") {
         $elencofiltrato = array();
