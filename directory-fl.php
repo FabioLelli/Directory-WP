@@ -13,6 +13,8 @@ function directory_shortcodes_init() {
     add_action('wp_enqueue_scripts', 'directory_fl_add_assets');
     add_action( 'wp_ajax_fl_directory_xhr', 'fl_ajax_directory_xhr' );
     add_action( 'wp_ajax_nopriv_fl_directory_xhr', 'fl_ajax_directory_xhr' );
+    add_action( 'wp_ajax_fl_directory_xhr_primo', 'fl_ajax_directory_xhr_primo' );
+    add_action( 'wp_ajax_nopriv_fl_directory_xhr_primo', 'fl_ajax_directory_xhr_primo' );
 }
 
 add_action( 'init', 'directory_shortcodes_init' );
@@ -164,6 +166,47 @@ function directory_fl_add_assets () {
     wp_enqueue_script('custom_directory_fl', plugin_dir_url( __DIR__ ) . 'directory-fl/public/js/app.js', array('jquery'), false, true);
     wp_enqueue_style('custom_directory_fl_css', plugin_dir_url( __DIR__ ) . 'directory-fl/public/css/custom_fl.css');
 }
+
+
+function fl_ajax_directory_xhr_primo () {
+    $directory = $_GET['directory'];
+    $estensioni = explode(";", $_GET['estensioni']);
+
+    $interoElenco = array();
+
+    $dir = WP_CONTENT_DIR . "/" . $directory;
+
+    $elenco = scandir($dir);
+    foreach ($elenco as $file) {
+        if ($file != "." && $file != "..") {
+            if (count($estensioni) == 0) {
+                $interoElenco[] = $file; 
+            } else {
+                $punto = strrpos($file,".");
+                $esten = substr($file,$punto+1);
+                if ($punto && in_array($esten, $estensioni)) {
+                    $interoElenco[] = $file; 
+                }
+            }
+        } 
+    }
+
+    natcasesort($interoElenco);
+
+    $primo = $interoElenco[0];
+    $nomeFile = pathinfo($primo, PATHINFO_FILENAME);
+
+
+    $data = array (
+        'src' => content_url() . "/$directory/$primo",
+        'anno' => $nomeFile
+    );
+
+    echo json_encode($data, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
+    wp_die();
+
+}
+
 
 
 function fl_ajax_directory_xhr () {

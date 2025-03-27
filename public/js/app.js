@@ -25,10 +25,26 @@ jQuery(document).ready(function(){
         success: function(data)
         {
           dati = JSON.parse(data);
-            jQuery("#pagination").html(dati.pagination);
-            jQuery("#lista").html(dati.elenco);
+          jQuery("#pagination").html(dati.pagination);
+          jQuery("#lista").html(dati.elenco);
         }       
-   });
+  });
+
+  jQuery.ajax({
+        url: data.ajax_url,
+        type: "GET",
+        data: {
+          action : 'fl_directory_xhr_primo',
+          directory : data.directory,
+          estensioni : jQuery('#estensioni').val()
+        },
+        success : function(data) {
+          dati = JSON.parse(data);
+          scheda.src = dati.src;
+          scheda.title = dati.anno;
+        }
+  });
+
 
   jQuery(document).on("click", ".page", function(event){
     event.preventDefault();
