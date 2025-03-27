@@ -169,6 +169,7 @@ function directory_fl_add_assets () {
 
 
 function fl_ajax_directory_xhr_primo () {
+
     $directory = $_GET['directory'];
     $estensioni = explode(";", $_GET['estensioni']);
 
@@ -193,7 +194,10 @@ function fl_ajax_directory_xhr_primo () {
 
     natcasesort($interoElenco);
 
-    $primo = $interoElenco[0];
+    $firstKey = array_key_first($interoElenco);
+
+
+    $primo = $interoElenco[$firstKey];
     $nomeFile = pathinfo($primo, PATHINFO_FILENAME);
 
 
